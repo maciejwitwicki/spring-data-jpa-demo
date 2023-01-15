@@ -8,15 +8,18 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.annotation.Commit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 @DataJpaTest
-@ComponentScan(basePackageClasses = DataInitializer.class)
+@AutoConfigureTestDatabase(replace = NONE)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ComponentScan(basePackageClasses = DataInitializer.class)
 public class SpringBootJpaTestSlice {
 
     @Autowired
@@ -25,7 +28,7 @@ public class SpringBootJpaTestSlice {
     @Test
     @Commit
     @Order(1)
-    void testJpaTestSPlice() {
+    void testJpaTestSplice() {
         var countBefore = bookRepository.count();
         assertThat(countBefore).isEqualTo(2);
 
