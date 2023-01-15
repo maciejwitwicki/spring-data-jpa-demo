@@ -4,9 +4,11 @@ import mwi.springframework.springdatajpademo.domain.Book;
 import mwi.springframework.springdatajpademo.repositories.BookRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile({"local", "default"})
 public class DataInitializer implements ApplicationRunner {
 
     private final BookRepository bookRepository;
@@ -17,8 +19,9 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        bookRepository.deleteAll();
+
         Book bookDDD = new Book("Domain Driven Design", "123", "RandomHouse");
-        System.out.println("id: " + bookDDD.getId());
 
         Book savedDDD = bookRepository.save(bookDDD);
 
